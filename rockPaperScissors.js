@@ -20,5 +20,23 @@ Rounds is what determines how many levels we go down through recursion.
 
 // With helper function
 var rockPaperScissors = function(num) {
-   
+  var rounds = num || 3;
+  var combinations = [];
+  var choices = ['rock', 'paper', 'scissors'];
+  var game = [];
+
+  var recurse = function(rounds) {
+    if (rounds === 0) {
+      combinations.push(game.slice());
+      return;
+    }
+    for (var i=0; i<choices.length; i++) {
+      var choice = choices[i];
+      game.push(choice);
+      recurse(rounds - 1);
+      game.pop(); // takes off the last choice after the empty 'return' statement brings control back here
+    }
   }
+  recurse(rounds);
+  return combinations;
+}
